@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HINT Mart — Fresh Indian Grocery Store Design System */
+
+/* Display font: Bricolage Grotesque */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("/assets/fonts/BricolageGrotesque-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Body font: Plus Jakarta Sans */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("/assets/fonts/PlusJakartaSans-Variable.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.75rem;
+
+    /* Background: warm white */
+    --background: 0.98 0.006 90;
+    --foreground: 0.18 0.025 50;
+
+    /* Card: crisp white */
+    --card: 1 0 0;
+    --card-foreground: 0.18 0.025 50;
+
+    /* Popover */
+    --popover: 1 0 0;
+    --popover-foreground: 0.18 0.025 50;
+
+    /* Primary: vibrant forest green */
+    --primary: 0.52 0.15 145;
+    --primary-foreground: 0.99 0 0;
+
+    /* Secondary: warm orange */
+    --secondary: 0.75 0.14 60;
+    --secondary-foreground: 0.99 0 0;
+
+    /* Muted */
+    --muted: 0.95 0.01 90;
+    --muted-foreground: 0.5 0.02 90;
+
+    /* Accent: golden yellow */
+    --accent: 0.85 0.15 85;
+    --accent-foreground: 0.15 0.03 50;
+
+    /* Destructive: warm red */
+    --destructive: 0.58 0.22 25;
+    --destructive-foreground: 0.99 0 0;
+
+    /* Border & Input */
+    --border: 0.88 0.02 90;
+    --input: 0.88 0.02 90;
+    --ring: 0.52 0.15 145;
+
+    /* Charts */
+    --chart-1: 0.52 0.15 145;
+    --chart-2: 0.75 0.14 60;
+    --chart-3: 0.85 0.15 85;
+    --chart-4: 0.58 0.22 25;
+    --chart-5: 0.62 0.12 200;
+
+    /* Sidebar */
+    --sidebar: 0.96 0.01 90;
+    --sidebar-foreground: 0.18 0.025 50;
+    --sidebar-primary: 0.52 0.15 145;
+    --sidebar-primary-foreground: 0.99 0 0;
+    --sidebar-accent: 0.92 0.03 90;
+    --sidebar-accent-foreground: 0.18 0.025 50;
+    --sidebar-border: 0.88 0.02 90;
+    --sidebar-ring: 0.52 0.15 145;
+
+    /* Custom brand tokens */
+    --brand-green: 0.52 0.15 145;
+    --brand-orange: 0.72 0.16 50;
+    --brand-gold: 0.85 0.15 85;
+    --brand-green-light: 0.93 0.06 145;
+    --brand-orange-light: 0.95 0.05 60;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Bricolage Grotesque", sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-brand-green { color: oklch(var(--brand-green)); }
+  .text-brand-orange { color: oklch(var(--brand-orange)); }
+  .bg-brand-green { background-color: oklch(var(--brand-green)); }
+  .bg-brand-orange { background-color: oklch(var(--brand-orange)); }
+  .bg-brand-green-light { background-color: oklch(var(--brand-green-light)); }
+  .bg-brand-orange-light { background-color: oklch(var(--brand-orange-light)); }
+  .border-brand-green { border-color: oklch(var(--brand-green)); }
+  .border-brand-orange { border-color: oklch(var(--brand-orange)); }
+
+  .gradient-hero {
+    background: linear-gradient(
+      135deg,
+      oklch(0.93 0.06 145) 0%,
+      oklch(0.97 0.03 90) 40%,
+      oklch(0.95 0.05 60) 100%
+    );
+  }
+
+  .gradient-card {
+    background: linear-gradient(
+      160deg,
+      oklch(1 0 0) 0%,
+      oklch(0.97 0.02 90) 100%
+    );
+  }
+
+  .shadow-card {
+    box-shadow: 0 2px 8px oklch(0.18 0.025 50 / 0.08), 0 1px 2px oklch(0.18 0.025 50 / 0.04);
+  }
+
+  .shadow-card-hover {
+    box-shadow: 0 8px 24px oklch(0.18 0.025 50 / 0.12), 0 2px 6px oklch(0.18 0.025 50 / 0.06);
+  }
+}
