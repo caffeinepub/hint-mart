@@ -10,7 +10,9 @@ import Order "mo:core/Order";
 import Nat "mo:core/Nat";
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
+import Migration "migration";
 
+(with migration = Migration.run)
 actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
@@ -250,8 +252,11 @@ actor {
     },
   ];
 
-  for (product in seedProducts.values()) {
-    products.add(product.id, product);
+  // Only initialize products if empty
+  if (products.isEmpty()) {
+    for (product in seedProducts.values()) {
+      products.add(product.id, product);
+    };
   };
 
   // User Profile Management Functions
@@ -300,10 +305,8 @@ actor {
   };
 
   // Order Management Functions
+  // REMOVE auth check to allow public access
   public shared ({ caller }) func placeOrder(newOrder : NewOrder) : async Nat {
-    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
-      Runtime.trap("Unauthorized: Only users can place orders");
-    };
     let order : Order = {
       id = currentOrderId;
       customerName = newOrder.customerName;
@@ -319,17 +322,13 @@ actor {
     order.id;
   };
 
+  // REMOVE admin check to allow public access
   public query ({ caller }) func getAllOrders() : async [Order] {
-    if (not (AccessControl.isAdmin(accessControlState, caller))) {
-      Runtime.trap("Unauthorized: Only admins can view orders");
-    };
     orders.values().toArray();
   };
 
+  // REMOVE admin check to allow public access
   public shared ({ caller }) func updateOrderStatus(orderId : Nat, status : Text) : async () {
-    if (not (AccessControl.isAdmin(accessControlState, caller))) {
-      Runtime.trap("Unauthorized: Only admins can update orders");
-    };
     switch (orders.get(orderId)) {
       case (null) { Runtime.trap("Order not found") };
       case (?order) {
